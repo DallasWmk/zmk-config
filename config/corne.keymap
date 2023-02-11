@@ -88,8 +88,8 @@
                         bindings = <
    &none &kp Q      &kp W &kp F      &kp P      &kp B   &kp J &kp L    &kp U     &kp Y   &kp SEMI      &none
    &none &kp A      &kp R hm_lc(S)   hm_la(T)   &kp G   &kp M hm_ra(N) hm_rc(E)  &kp I   &kp O         &none
-   &none &mt LSFT Z &kp X &kp C      &kp D      &kp V   &kp K &kp H    &kp COMMA &kp DOT &mt RSFT FSLH &none
-                            &LSHIFT &mlk SYM SYM &sk BSPC   &kp SPACE &mlk NUM NUM &ENTER
+   &none &mt LSHFT Z &kp X &kp C      &kp D      &kp V   &kp K &kp H    &kp COMMA &kp DOT &mt RSFT FSLH &none
+                            &LSHFT &mlk SYM SYM &sk BSPC   &kp SPACE &mlk NUM NUM &ENTER
                         >;
                 };
                 sym_layer {
