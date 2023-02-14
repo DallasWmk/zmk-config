@@ -84,7 +84,7 @@
 		            bindings = <
 		                &none &kp ESC   &kp AT     &td LC(LG(LS(N4))) LS(N3) &kp DLLR         &kp PRCNT		&kp CARET &kp AMPS &kp STAR &kp SEMI &kp BKSP  &none
 		                &none &kp TAB   &kp EQUAL  &kp LA(RBKT)              &kp LA(LS(RBKT)) &kp SQT 		&kp BSLH  &kp LBRC      &kp RBRC    &kp PIPE &kp ENTER &none
-		                &none &kp TILDE &kp LA(N3) &kp LA(LBKT)              &kp LA(LS(LBKT)) &kp DQT 	    &kp LBKT  &kp LPRN      &kp RPRN    &kp RBKT &to 3     &none
+		                &none &kp GRAVE &kp LA(N3) &kp LA(LBKT)              &kp LA(LS(LBKT)) &kp DQT 	    &kp LBKT  &kp LPRN      &kp RPRN    &kp RBKT &to 3     &none
 		        			                       &sk LSHIFT                &to 0            &kp BSPC    	&kp SPACE       &to 2 &kp RALT
 		            >;
 		        };
