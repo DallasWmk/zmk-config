@@ -69,7 +69,7 @@
                     bindings = <
                         &none &kp Q       &kp W &kp F      &kp P      &kp B   &kp J &kp L      &kp U       &kp Y   &kp SEMI      &none
                         &none &kp A       &kp R &hm LALT S &hm LGUI T &kp G   &kp M &hm RGUI N &hm RALT E  &kp I   &kp O         &none
-                        &none &mt LSHFT Z &kp X &kp C      &kp D      &kp V   &kp K &kp H      &kp COMMA   &kp DOT &mt RSFT FSLH &none
+                        &none &mt LSHFT Z &kp X &kp C      &kp D      &kp V   &kp K &kp H      &kp COMMA   &td EXCL DOT &td UNDERSCORE SLASH &none
                                                 &none      &sk LSHIFT &kp BSPC &kp SPACE  &kp RCTL &to 1 
                     >;
                 };
