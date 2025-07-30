@@ -3,14 +3,12 @@
  *
  * SPDX-License-Identifier: MIT
  */
-
 /* TODO: */
 /* 1. Add function key layer to start debuggers, use both raise and lower keys */
 /* 2. Add sticky key and momentary to hold tap on symbols layer */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h>
 
 &mt {
     tapping-term-ms = <201>;
@@ -19,6 +17,7 @@
 
 &sk {
     // don't release mods on other mods presses
+
     ignore-modifiers;
 };
 
@@ -35,99 +34,99 @@
 #define hm_ra(keycode) &hm RALT keycode
 
 / {
-        behaviors {
-            hm: homerow_mods {
-                compatible = "zmk,behavior-hold-tap";
-                label = "HOMEROW_MODS";
-                #binding-cells = <2>;
-                tapping-term-ms = <200>;
-                quick_tap_ms = <0>;
-                flavor = "tap-preferred";
-                bindings = <&kp>, <&kp>;
-            };
-	        td: tapdance {
-                compatible = "zmk,behavior-hold-tap";
-                label = "TAPDANCE";
-                #binding-cells = <2>;
-                tapping-term-ms = <150>;
-                quick_tap_ms = <0>;
-                flavor = "tap-preferred";
-                bindings = <&kp>, <&kp>;
-            };
+    behaviors {
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick_tap_ms = <0>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
         };
 
-        keymap {
-                compatible = "zmk,keymap";
+        td: tapdance {
+            compatible = "zmk,behavior-hold-tap";
+            label = "TAPDANCE";
+            #binding-cells = <2>;
+            tapping-term-ms = <150>;
+            quick_tap_ms = <0>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+    };
 
-// BASE ALPHABET LAYER
-                default_layer {
-// ------------------------------------------------------------------
-// |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L   |  U  |  Y  |  ;  |
-// |  A  |  R  |  S  |  T  |  G  |   |  M  |  N   |  E  |  I  |  O  |
-// |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H   |  ,  |  .  |  /  |
-//             | RPT | RSE |BSPC |   | SPC | ENT  | RPT |
-                    bindings = <
-                        &none &kp Q       &kp W &kp F      &kp P      &kp B   &kp J &kp L      &kp U       &kp Y   &kp SEMI      &none
-                        &none &kp A       &kp R &hm LALT S &hm LGUI T &kp G   &kp M &hm RGUI N &hm RALT E  &kp I   &kp O         &none
-                        &none &mt LSHFT Z &kp X &kp C      &kp D      &kp V   &kp K &kp H      &kp COMMA   &td EXCL DOT &td UNDERSCORE SLASH &none
-                                                &sk LSHIFT &none       &kp BSPC &kp SPACE  &to 1 &kp RCTL
-                    >;
-                };
+    keymap {
+        compatible = "zmk,keymap";
 
-// SYMBOL LAYER
-                symb_layer {
-// ------------------------------------------------------------------
-// |  ESC  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  ;  |  BKSP  |
-// |  TAB  |  =  |  +  |  -  |  '  |   |  \  |  {  |  }  |  |  |  RET   |
-// |  `    |  £  |  "  |  "  |  "  |   |  [  |  (  |  )  |  ]  |  TO 3  |
-//             | RPT | RSE |BSPC |   | SPC | ENT  | RPT |
-		            bindings = <
-		                &none &kp ESC   &kp AT     &td LC(LG(LS(N4))) LS(N3) &kp DLLR         &kp PRCNT		&kp CARET &kp AMPS &kp STAR &kp SEMI &kp BKSP  &none
-		                &none &kp TAB   &kp EQUAL  &kp PLUS              &kp MINUS &kp SQT 		&kp BSLH  &kp LBRC      &kp RBRC    &kp PIPE &kp ENTER &none
-		                &none &kp GRAVE &none &kp DQT              &kp DQT &kp DQT 	    &kp LBKT  &kp LPRN      &kp RPRN    &kp RBKT &to 3     &none
-		        			                       &sk LSHIFT                &to 0            &kp BSPC    	&kp SPACE       &to 2 &kp RALT
-		            >;
-		        };
+        // BASE ALPHABET LAYER
 
-// NUMPAD & AUDIO CONTROL	
-		        num_layer {
-// ------------------------------------------------------------------
-// |  ESC   |  play/pause  |  PREV   |  NEXT    |  _    |   |  -  |  7   |  8  |  9  |       |
-// |  TAB   |              |  VOL DN |  VOL UP  |  ???  |   |  =  |  4   |  5  |  6  |  RET  |
-// |  TO 4  |  &           |  /      |  *       |  .    |   |  0  |  1   |  2  |  3  |       |
-//                         | RPT     | RSE      |BSPC   |   | SPC | ENT  | RPT |
-		            bindings = <
-		                &none &kp ESC  &kp C_PP &kp C_PREV   &kp C_NEXT   &kp LS(MINUS) &kp MINUS  &kp N7 &kp N8 &kp N9 &trans    &none
-		                &none &kp TAB  &trans   &kp C_VOL_DN &kp C_VOL_UP &kp LS(EQUAL) &kp EQUAL  &kp N4 &kp N5 &kp N6 &kp ENTER &none
-		                &none &to 4    &kp AMPS &kp SLASH    &kp STAR     &kp DOT    	&kp N0     &kp N1 &kp N2 &kp N3 &to 4    &none
-		             			    &sk LGUI &to 0         &kp BSPC          	  &kp SPACE          &to 2   &sk RALT
-		            >;
-		        };
+        default_layer {
+            // ------------------------------------------------------------------
+            // |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L   |  U  |  Y  |  ;  |
+            // |  A  |  R  |  S  |  T  |  G  |   |  M  |  N   |  E  |  I  |  O  |
+            // |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H   |  ,  |  .  |  /  |
+            //             | RPT | RSE |BSPC |   | SPC | ENT  | RPT |
 
-// NAVIGATIONAL LAYER (MOUSE)		
-		        nav_layer {
-// ------------------------------------------------------------------
-// |         |     |     |     |     |   |  J     |  L      |  U   |         |       |
-// |  F1     |     |     |     |     |   |  LEFT  |  DOWN   |  UP  |  RIGHT  |  RET  |
-// |  GRAVE  |     |     |     |     |   |  K  |  H   |  ,  |  .  |  /  |
-//             | RPT | RSE |BSPC |   | SPC | ENT  | RPT 
-		            bindings = <
-		                &none &trans              &trans &trans &trans &trans &trans   &trans    &trans       &kp LG(RBKT) &trans    &none
-		                &none &kp F1              &trans &trans &trans &trans &kp LEFT &kp DOWN  &kp UP       &kp RIGHT    &kp ENTER &none
-		                &none &td LG(GRAVE) GRAVE &trans &trans &trans &trans &trans   &trans    &trans       &trans       &trans    &none
-					                                   &sk LSHIFT  &to 0  &kp BSPC     &kp SPACE  &to 1 &sk RALT
-		            >;
-		        };
+            bindings = <
+&none  &kp Q        &kp W  &kp F       &kp P       &kp B       &kp J      &kp L       &kp U       &kp Y         &kp SEMI              &none
+&none  &kp A        &kp R  &hm LALT S  &hm LGUI T  &kp G       &kp M      &hm RGUI N  &hm RALT E  &kp I         &kp O                 &none
+&none  &mt LSHFT Z  &kp X  &kp C       &kp D       &kp V       &kp K      &kp H       &kp COMMA   &td EXCL DOT  &td UNDERSCORE SLASH  &none
+                           &sk LSHIFT  &none       &kp BSPC    &kp SPACE  &to 1       &kp RCTRL
+            >;
+        };
 
-// BLUETOOTH CONNECTIVITY LAYER
-		        bt {
-		            bindings = <
-		                &none &trans  &trans &trans &trans &trans &trans &trans &trans &trans &trans &none  
-		                &none &trans  &trans &trans &trans &trans &trans &trans &trans &trans &trans &none 
-		                &none &bt BT_PRV  &bt BT_NXT &bt BT_CLR &trans &trans &trans &trans  &trans  &trans &trans &none  
-					                            &trans   &to 0   &trans  				   &trans &to 1 &trans
-		            >;
-		        };
+        // SYMBOL LAYER
 
+        symb_layer {
+            // ------------------------------------------------------------------
+            // |  ESC  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  ;  |  BKSP  |
+            // |  TAB  |  =  |  +  |  -  |  '  |   |  \  |  {  |  }  |  |  |  RET   |
+            // |  `    |  £  |  "  |  "  |  "  |   |  [  |  (  |  )  |  ]  |  TO 3  |
+            //             | RPT | RSE |BSPC |   | SPC | ENT  | RPT |
+
+            bindings = <
+&none  &kp ESC    &kp AT     &td LC(LG(LS(N4))) LS(N3)  &kp DLLR   &kp PRCNT    &kp CARET  &kp AMPS              &kp STAR               &kp SEMI  &kp DEL    &none
+&none  &kp TAB    &kp EQUAL  &kp PLUS                   &kp MINUS  &kp SQT      &kp BSLH   &kp LBRC              &kp RBRC               &kp PIPE  &kp ENTER  &none
+&none  &kp GRAVE  &none      &kp DQT                    &kp DQT    &kp DQT      &kp LBKT   &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp RBKT  &to 3      &none
+                             &sk LSHIFT                 &to 0      &kp BSPC     &kp SPACE  &to 2                 &kp RALT
+            >;
+        };
+
+        // NUMPAD & AUDIO CONTROL	
+
+        num_layer {
+            // ------------------------------------------------------------------
+            // |  ESC   |  play/pause  |  PREV   |  NEXT    |  _    |   |  -  |  7   |  8  |  9  |       |
+            // |  TAB   |              |  VOL DN |  VOL UP  |  ???  |   |  =  |  4   |  5  |  6  |  RET  |
+            // |  TO 4  |  &           |  /      |  *       |  .    |   |  0  |  1   |  2  |  3  |       |
+            //                         | RPT     | RSE      |BSPC   |   | SPC | ENT  | RPT |
+
+            bindings = <
+&none  &kp ESC  &kp C_PP  &kp C_PREV    &kp C_NEXT    &kp LS(MINUS)    &kp MINUS  &kp N7  &kp N8    &kp N9  &none      &none
+&none  &kp TAB  &none     &kp C_VOL_DN  &kp C_VOL_UP  &kp LS(EQUAL)    &kp EQUAL  &kp N4  &kp N5    &kp N6  &kp ENTER  &none
+&none  &to 0    &kp AMPS  &kp SLASH     &kp STAR      &kp DOT          &kp N0     &kp N1  &kp N2    &kp N3  &to 0      &none
+                          &sk LGUI      &to 1         &kp BSPC         &kp SPACE  &to 3   &sk RALT
+            >;
+        };
+
+        // NAVIGATIONAL LAYER (MOUSE)		
+
+        func_layer {
+            // ------------------------------------------------------------------
+            // |         |     |     |     |     |   |  J     |  L      |  U   |         |       |
+            // |  F1     |     |     |     |     |   |  LEFT  |  DOWN   |  UP  |  RIGHT  |  RET  |
+            // |  GRAVE  |     |     |     |     |   |  K  |  H   |  ,  |  .  |  /  |
+            //             | RPT | RSE |BSPC |   | SPC | ENT  | RPT 
+
+            bindings = <
+&none  &none  &none  &none       &none  &none       &none      &kp F1  &kp F2    &kp F3   &kp F4   &none
+&none  &none  &none  &none       &none  &none       &none      &kp F5  &kp F6    &kp F7   &kp F8   &none
+&none  &none  &none  &none       &none  &none       &none      &kp F9  &kp F10   &kp F11  &kp F12  &none
+                     &sk LSHIFT  &to 2  &kp BSPC    &kp SPACE  &to 0   &sk RALT
+            >;
+        };
+
+        // BLUETOOTH CONNECTIVITY LAYER
     };
 };
